@@ -28,3 +28,6 @@ Example for local file:
 ```console
 $ python transcribe.py audio.mp3 --local --api_key=<YOUR-API-KEY>
 ```
+My API Key:
+
+666bb857bdf84c0eba553e6fc101e62d

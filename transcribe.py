@@ -1,3 +1,7 @@
+## To Run Locally Without Storing (without storing and retrieving the API key successfully): 
+##      py transcribe.py replace_with_name_of_audio_or_video_file --local --api_key=666bb857bdf84c0eba553e6fc101e62d
+##
+
 import argparse
 import os
 import utils
@@ -41,13 +45,27 @@ def main():
     # Request the paragraphs of the transcript
     paragraphs = utils.get_paragraphs(polling_endpoint, header)
 
-    # Save and print transcript
-    with open('transcript.txt', 'w') as f:
-        for para in paragraphs:
-            print(para['text'] + '\n')
-            f.write(para['text'] + '\n')
+    #5. Print transcription outputs
+    #Print transcribed text response
+    transcript_output_response = utils.get_transcript_output(polling_endpoint, header)
 
-    return
+    ##print('----------\n')
+    transcript = '----------\n'
+    speakers = transcript_output_response['utterances']
+    for speaker in speakers:
+        result = (f'Speaker {speaker["speaker"]} \n {speaker["text"]} \n' )
+        transcript+=result 
+        ##print(result)
+    print(transcript)
+
+
+    # # Save and print transcript
+    # with open('transcript.txt', 'w') as f:
+    #     for para in paragraphs:
+    #         print(para['text'] + '\n')
+    #         f.write(para['text'] + '\n')
+
+    # return
 
 
 if __name__ == '__main__':

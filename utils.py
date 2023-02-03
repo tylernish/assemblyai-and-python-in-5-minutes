@@ -26,9 +26,15 @@ def upload_file(audio_file, header):
 
 
 # Request transcript for file uploaded to AAI servers
+## line with 'speaker_labels': True was added by Tyler to toggle Speaker Diarization
+## Also added every other parameter below this^
 def request_transcript(upload_url, header):
     transcript_request = {
-        'audio_url': upload_url['upload_url']
+        'audio_url': upload_url['upload_url'],
+        'speaker_labels': True, 
+        'summarization': True,
+        'summary_model': 'conversational',#other options include: informative, conversational, or catchy
+        'summary_type': 'paragraph'#other options include: bullets, bullets_verbose, gist, headline, paragraph
     }
     transcript_response = requests.post(
         transcript_endpoint,
@@ -68,3 +74,9 @@ def get_paragraphs(polling_endpoint, header):
 
     return paragraphs
 
+# Get the paragraphs of the transcript
+def get_transcript_output(polling_endpoint, header):
+    transcript_output_response = requests.get(polling_endpoint, headers=header)
+    transcript_output_response = transcript_output_response.json()
+
+    return transcript_output_response
