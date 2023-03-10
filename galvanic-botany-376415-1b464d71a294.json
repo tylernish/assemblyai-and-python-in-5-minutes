@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "galvanic-botany-376415",
+  "private_key_id": "1b464d71a294cd475cb23bda83e383a32db87f03",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDN3y2C7h+GnY98\nwu8aq0nAAzM79tVBpdyGo7pBnpZhs2qcL0+WDX921v2KqYGY8F6QRt1szMTd68bt\n0RzIQ+FUg9JYTTT45k3y9tLdDrO9eWhmO/joGza9i/YUvfKBvvUQoS8CSYueAAvR\nxrfRtewKXWuPqoEvTse79ZrwSJh9XTTSEajp0AaBhTjueaNG9r2/ciSF4IZHLUfy\njQHtCngyWlqTXpexWJ0D7NDrY3uSPY4Tn4DvIMk02xQG5N4Z93esmOm98TFPUaR6\nexQ54LRxd/mH/KPECN/6fqrfMCc7JfznT1UxhidswxAcMmj/uVbpUDx2a9m5Ruky\niesfhPR1AgMBAAECggEAHbJDQN8zefoRYBhIYErz/PgZNF2jHnCb8mn8rImBPL+i\nMbxbWRRCXjSd5xoTYSnPIjWurAqPnUls7RIcekDcaJIJTgZ5DSw/czwqZ4u+3qZ8\nKj8dZPHEACyHxy8tI40VkZwGiWhtdNGh4tUs39nDni0inlskflv5UMIZYu693FtK\nzA/drRfIgNDmhljGBqr7eUyxZDZfZ5W91aGmIcTqoaJj1bR1pUL0Mcaqw6mNc2n6\nXzxgwqXtwkzFC0a9C0f4X/u6KJ7+gGmICM0xN5m1+/k9RIS85T+zliij5K+eIGlD\na8btUO22IG19jS/vSC1wm6E5Rzxub8gj2LW/1PAS0wKBgQDqU5RN9xVt3mP0IrUH\nojOr2bdPO9/yMmvnvhDqgr9VOev2n3CepsKZgWRgBtaL1GqVgrbNhXDjdU8kmKeu\n+tkOASDT1hHFdCz4spBJpYAAKXO/3abCZ+OLibns4dYr0LByEV8HCqN+vMr8MEtf\nnmPicyZwAjnbOE0oLklkoMetewKBgQDg6df1Tgepv8GLqEx8I0CG/zGnmCJbgySH\n9jcEWmjp5evoHSMifqXX1llciIY+o8ZwUjnKr/RRP9LLSo22CH4+j1EWLj/SjyR/\nFw1UzRXFlJQz4HfTyxN5oADYOKSGTtcychzZZpcTz8/WboXY/7fegTB58UWReWsR\nAE8wIdSqzwKBgGzy1UZ2tkDyIJkXNgJJmSqyvHcbiKEsbl0+UtEmX11548s0EIHD\nWUFUFt5K75/t8Gx5bRMbkwQ+u8BxNa22tgq73Y6AvpyGyo4LP+juCRiKLWYs4WcM\nNJDhRU/tJM4UZqVyjDNS7/dyQhKFRdY8Z4aXMWzsrAfQIpenBbrCwnRXAoGABlQO\nE4TiilAu7fMKU+PaCPJdP030iYajHIA9BA5XLV2eyaUoO+w8VlpdoVDmFhUdnEN0\nBNP2l+Kn17h9TEXo53G44lriyNXmPP01DtHGbwzDLsJ+HKN2JNHvtCXD21OUkoLL\ndQKB9bi/LFVnxrdLQSN5bbTwNCuqa4wKrlwFU9kCgYEA0qsz3k6Q4oVbwG1CmVw9\n0YuwGjldCp5XnZ5/kVo0hQRXC5dO93DOfZXeK4FCvN58bRexxlq37Y+N1LU4fKyu\nv6EnIJO2SdFfLD+IKUzdfzfDerkAIyHMrlXEHjLu3CTRATQ/VUeSNGrzL3Xx120g\njvwFlHNtr/aQZz41aPaz8nI=\n-----END PRIVATE KEY-----\n",
+  "client_email": "podcast-data@galvanic-botany-376415.iam.gserviceaccount.com",
+  "client_id": "110628175057557414873",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/podcast-data%40galvanic-botany-376415.iam.gserviceaccount.com"
+}
