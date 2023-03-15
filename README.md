@@ -1,3 +1,15 @@
+# How to run
+Imports such as:
+    'pip install lxml'
+    'pip install nltk'
+    all the other normal python imports
+
+Then run 'monitor_func.py'
+
+That's it.
+
+Every 10 minutes it will check the google sheet named 'Podcast Data' for entries with no transcript or summararies and then fill the missing information in.
+
 # speech-recognition-in-5-minutes-with-python
 
 Repo for hosting tutorial code associated with the [AssemblyAI and Python in 5 Minutes](https://www.assemblyai.com/blog/assemblyai-and-python-in-5-minutes/) blog by [AssemblyAI](https://www.assemblyai.com/)

@@ -3,7 +3,7 @@ import send_func
 
 sched = BlockingScheduler()
 
-@sched.scheduled_job('interval', seconds=300)
+@sched.scheduled_job('interval', seconds=600)
 def timed_job():
     print('This job is run every 5 minutes.')
     ##Here I can make it check if there are any incomplete rows with send_func.updateSheetData()
