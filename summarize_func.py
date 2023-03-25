@@ -35,7 +35,7 @@ def summarizeText(text):
 def summarizeSummaries(text):
   response = openai.Completion.create(
     model="text-davinci-003",
-    prompt="Using these summaries for parts of a podcast episode, write a general summary for the entire episode: " + text,  ## +"\n\nTl;dr",
+    prompt="Using these summaries for parts of a podcast episode, write a general summary for the entire podcast episode: " + text,  ## +"\n\nTl;dr",
     temperature=0.7,
     max_tokens=300,
     top_p=1.0,
