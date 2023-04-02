@@ -47,7 +47,7 @@ def audioToText(audioFileName, isLocal):
     #Print transcribed text response
     transcript_output_response = utils.get_transcript_output(polling_endpoint, header)
 
-    transcript = '----------\n'
+    transcript = ''#'----------\n'
     speakers = transcript_output_response['utterances']
     for speaker in speakers:
         result = (f'Speaker {speaker["speaker"]} \n {speaker["text"]} \n' )

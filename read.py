@@ -52,6 +52,14 @@ def nextOpenRow(wrksName):
     print('The next open row is ' + str(row))
     return row
 
+def nextOpenRowNumber(wrksName):
+    worksheet = sh.worksheet(wrksName)
+    print('Here is the worksheet Row Count: '+str(worksheet.row_count))
+    cols = worksheet.range(1, 1, worksheet.row_count, 10)#checks if values appear in the first 2 cols of each row
+    rowNumber = max([cell.row for cell in cols if cell.value]) + 1
+    print('The next open row is ' + str(rowNumber))
+    return rowNumber
+
 ## def lookForShow(showName, wrksName)
 
 ## def lookForEpisode(episodeName, showName, wrksName)

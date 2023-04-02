@@ -109,6 +109,7 @@ def addNewEpisodes(wrks_name, df_to_add):
 def addSummaries(wrks_name, episodeName):
     #Now add in the summary of the transcript
     #location = [10, read.]
+    #print("")
     episodeIndex = read.getIndex(str(episodeName), wrks_name)#need first element (row) out of that 2 length list for the index: [row,col]
     print("*****Episode Name's Index is: " + str(episodeIndex))
     if episodeName is None or pd.isna(episodeName):
@@ -169,35 +170,72 @@ def sendMissingRowData(wrks_name, df, row):
     #episodeNameCell = read.getValue('C'+rowString, wrks_name)
     seriesName = read.getDfValue(row,'Podcast_Series', df)
     episodeNameCell = read.getDfValue(row, 'Episode_Name', df)
+    episodeGoogleURLCell = str(read.getDfValue(row, 'Google URL', df))
+    print('FOR TESTING*** Here is the cells episodeGoogleURLCell data: '+ episodeGoogleURLCell)
 
     print('Checking if GSpreadsheet row '+ rowString + ' has episodeName != None and transcript == None ')
-    print('EpisodeName is: ' + episodeNameCell)
+    print('EpisodeName is: ' + str(episodeNameCell))
     #if (episodeNameCell != None and read.getValue('H'+rowString, wrks_name)==None):## and read.getValue('B'+rowString)==None):
     if (pd.notna(episodeNameCell)):
+        print('EpisodeNameCell exists')
         # if there is no transcript, fill in all other missing data
         transcript = read.getDfValue(row, 'Transcript', df)
         if (pd.isna(transcript) or (transcript is None)):## and read.getValue('B'+rowString)==None):
-            
-            print('turns out to be true! No transcript but there is a episode name. \n***************Scraping the rest of the missing data and inserting it')
-            url = search_func.get_google_podcasts_link(seriesName)
-            # $$ this below is returning an empty list or df
-            updatedRow = scrape_func.download_missing_podcast_data(episodeNameCell, url, wrks_name) #this should only be of height 1 but it still might be in a list of lists or a df so might not act like a row, look for POSSIBLE ERRORS or BUGS
-            if updatedRow.empty:
-                print('Could not find the searched for episode, deleting this row so that later time is not wasted trying to find data again')
-                sectionToUpdate = 'A'+rowString+':I'+rowString
-                sh = gc.open("Podcast Data")
-                worksheet = sh.worksheet(wrks_name)
-                worksheet.delete_rows(row)#Will delete the row not being used
-            else:
-                print('\n\n******Here is the variable updated Row, this should not be empty:\n')
-                print(updatedRow)
-                sectionToUpdate = 'A'+rowString+':I'+rowString
-                updateSection(wrks_name, sectionToUpdate, updatedRow)
-                addSummaries(wrks_name, episodeNameCell)
+           sendMissingDataFromEpisodeName(wrks_name, episodeNameCell, row, seriesName, rowString)
+
         # if there was a transcript, check if there is a summary
         elif (pd.isna(read.getDfValue(row, 'Summary', df))): #if not
             print('Only a summary was missing from the episode name input: '+episodeNameCell)
             addSummaries(wrks_name, episodeNameCell)#add one
+    
+    elif (pd.notna(episodeGoogleURLCell) and (episodeGoogleURLCell != 'nan')):
+        print("********There is a URL form that was created from Webflow")
+        # if there is no transcript, fill in all other missing data
+        transcript = read.getDfValue(row, 'Transcript', df)
+        if (pd.isna(transcript) or (transcript is None)):## and read.getValue('B'+rowString)==None):
+           print('\tThere is also no transcript. Running sendMissingDataFromURL')
+           sendMissingDataFromURL(wrks_name, episodeGoogleURLCell, df, row, rowString)
+
+#Only gets called when there is an empty row with only a google podcasts URL attached 
+def sendMissingDataFromURL(wrks_name, episodeGoogleURLCell, df, row, rowString):
+    print('turns out to be true! No transcript but there is a Google Podcasts URL. \n***************Scraping the rest of the missing data and inserting it')
+    url = episodeGoogleURLCell
+    # $$ this below is returning an empty list or df
+    updatedRow = scrape_func.download_missing_podcast_data_from_episode_URL(url, wrks_name) #this should only be of height 1 but it still might be in a list of lists or a df so might not act like a row, look for POSSIBLE ERRORS or BUGS
+    if updatedRow.empty:
+        print('Could not find the searched for episode, deleting this row so that later time is not wasted trying to find data again')
+        sectionToUpdate = 'A'+rowString+':I'+rowString
+        sh = gc.open("Podcast Data")
+        worksheet = sh.worksheet(wrks_name)
+        worksheet.delete_rows(row)#Will delete the row not being used
+    else:
+        print('\n\n******Here is the variable updated Row, this should not be empty:\n')
+        print(updatedRow)
+        sectionToUpdate = 'A'+rowString+':I'+rowString
+        updateSection(wrks_name, sectionToUpdate, updatedRow)
+        episodeNameCell = read.getDfValue(row, 'Episode_Name', df)
+        print("Episode name cell content is: "+str(episodeNameCell) +', for row: '+str(row))
+        addSummaries(wrks_name, episodeNameCell)
+
+
+def sendMissingDataFromEpisodeName(wrks_name, episodeNameCell, row, seriesName, rowString):
+    print('turns out to be true! No transcript but there is a episode name. \n***************Scraping the rest of the missing data and inserting it')
+    url = search_func.get_google_podcasts_link(seriesName)
+    # $$ this below is returning an empty list or df
+    updatedRow = scrape_func.download_missing_podcast_data(episodeNameCell, url, wrks_name) #this should only be of height 1 but it still might be in a list of lists or a df so might not act like a row, look for POSSIBLE ERRORS or BUGS
+    if updatedRow.empty:
+        print('Could not find the searched for episode, deleting this row so that later time is not wasted trying to find data again')
+        sectionToUpdate = 'A'+rowString+':I'+rowString
+        sh = gc.open("Podcast Data")
+        worksheet = sh.worksheet(wrks_name)
+        worksheet.delete_rows(row)#Will delete the row not being used
+    else:
+        print('\n\n******Here is the variable updated Row, this should not be empty:\n')
+        print(updatedRow)
+        sectionToUpdate = 'A'+rowString+':I'+rowString
+        updateSection(wrks_name, sectionToUpdate, updatedRow)
+        addSummaries(wrks_name, episodeNameCell)
+
 
 ## Input
 ## Output
@@ -209,7 +247,8 @@ def updateSheetData(wrks_name):
         print('Google sheet is empty!')
     else:
         df = read.readDf(wrks_name)
-        for x in range(0, read.nextOpenRow(wrks_name)-2): #start at row 2 -2 because row 1 is just the column headers but df doesn't include headers and counts row 1 at 0
+        for x in range(0, read.nextOpenRowNumber(wrks_name)-2): #start at row 2 -2 because row 1 is just the column headers but df doesn't include headers and counts row 1 at 0
+            print('Attempting to send missing row data for df row #'+str(x))
             sendMissingRowData(wrks_name, df, x)
 
 def main2():
