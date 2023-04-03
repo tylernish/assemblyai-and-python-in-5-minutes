@@ -21,7 +21,7 @@ def download_podcasts(url):
     title = soup.find('div', {'class':'ZfMIwb'}).text # This is the name of the show
     ## if folder exists already
     if os.path.exists(title):
-        print("The Podcast Series: '"+title+ ",' has been downloaded previously. Checking for updates.")
+        #print("The Podcast Series: '"+title+ ",' has been downloaded previously. Checking for updates.")
         # d = {}
         # df = pd.DataFrame(data=d)
         df = pd.DataFrame()
@@ -40,7 +40,7 @@ def download_podcasts(url):
 
         for podcast in soup.find_all('a', {'role':'listitem'}):
             time = podcast.find('div', {'class':'OTz6ee'}).text
-            #print(time)
+            ##print(time)
             if (time.startswith('Feb') or time.startswith('Feb ')) and (time.endswith('2023')):
                 i += 1
                 time_l.append(time)
@@ -51,7 +51,7 @@ def download_podcasts(url):
                 name = podcast.find('div', {'class':'e3ZUqe'}).text
                 name_l.append(name)
                 
-                print(i, ":", time)
+                #print(i, ":", time)
                 filename = wget.download(link, out=title)
                 os.rename(filename, title+'/audio'+str(i)+'.mp3') # use if the downloaded name is always the same
                 ID_l.append('audio'+str(i))                         #^
@@ -75,17 +75,17 @@ def download_podcasts(url):
                 # ***********Going to do the summary later **************referencing the transcript that is in the cells
                 
                 ##Call the summarize method
-                # print('Summary method called on the transcription!')
+                # #print('Summary method called on the transcription!')
                 # summary = summarize_func.summarizeTranscript(transcription)
 
-                # print('Appending this Transcript summary: ' + summary)
+                # #print('Appending this Transcript summary: ' + summary)
                 
                 # summary_1.append(summary)
         
         df = pd.DataFrame(list(zip([title]*len(ID_l), ID_l, name_l, time_l, description_l, length_l, link_l, transcript_1, summary_1)), 
                         columns =['Show', 'ID', 'Episode', 'Time', 'Description', 'Length', 'Link', 'Transcript', 'Summary'])
-        #print(df.to_string())
+        ##print(df.to_string())
         ##Save the file as a csv and maybe you can then save the entire transcripts and summaries there as well
         ##df.to_csv(title+'\\'+ title + '_Details.csv',na_rep='Unkown') # missing value save as Unknown
-        print('*****Successfully scraped the podcast audio and details')
+        #print('*****Successfully scraped the podcast audio and details')
         return df

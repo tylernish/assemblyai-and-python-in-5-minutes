@@ -23,7 +23,7 @@ def main():
         args.audio_file = podName +"\\" + podEpisode ##needed two \'s cause one by itself would cause an error
         ## In theory this paragraph ^ should have been able to take in the podcast name 
         ## and episode so I can reference it from a folder I would have saved to this directory
-        print(podName+"\\"+podEpisode)
+        #print(podName+"\\"+podEpisode)
         if args.audio_file is None:
             raise RuntimeError("audio_file not set, glitching rn.")
 
@@ -42,7 +42,7 @@ def main():
 
     if args.local:
         # Upload the audio file to AssemblyAI
-        print(args.audio_file)
+        #print(args.audio_file)
         upload_url = utils.upload_file(args.audio_file, header)
     else:
         upload_url = {'upload_url': args.audio_file}
@@ -59,8 +59,8 @@ def main():
     # Request the paragraphs of the transcript
     paragraphs = utils.get_paragraphs(polling_endpoint, header)
 
-    #5. Print transcription outputs
-    #Print transcribed text response
+    #5. #print transcription outputs
+    ##print transcribed text response
     transcript_output_response = utils.get_transcript_output(polling_endpoint, header)
 
     transcript = '----------\n'
@@ -68,14 +68,14 @@ def main():
     for speaker in speakers:
         result = (f'Speaker {speaker["speaker"]} \n {speaker["text"]} \n' )
         transcript+=result 
-        ##print(result) ##Prints each line one by one
-    ##print(transcript) ##Prints the entire transcript once finished
+        ###print(result) ###prints each line one by one
+    ###print(transcript) ###prints the entire transcript once finished
     return transcript
 
-    # # Save and print transcript
+    # # Save and #print transcript
     # with open(args.audio_file +'.txt', 'w') as f:
     #     for para in paragraphs:
-    #         print(para['text'] + '\n')
+    #         #print(para['text'] + '\n')
     #         f.write(para['text'] + '\n')
 
     # return

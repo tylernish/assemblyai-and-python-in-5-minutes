@@ -44,25 +44,25 @@ def main():
     # Request the paragraphs of the transcript
     paragraphs = utils.get_paragraphs(polling_endpoint, header)
 
-    #5. Print transcription outputs
-    #Print transcribed text response
+    #5. #print transcription outputs
+    ##print transcribed text response
     transcript_output_response = utils.get_transcript_output(polling_endpoint, header)
 
-    print('----------\n')
-    print('Speaker Labels:\n')
+    #print('----------\n')
+    #print('Speaker Labels:\n')
     speakers = transcript_output_response['utterances']
     for speaker in speakers:
         result = (f'Speaker {speaker["speaker"]} \n {speaker["text"]} \n' )
-        print(result)
+        #print(result)
         
-    print('----------\n')
-    print('Summary:\n')
-    print(transcript_output_response['summary'])
+    #print('----------\n')
+    #print('Summary:\n')
+    #print(transcript_output_response['summary'])
     
-    # # Save and print transcript
+    # # Save and #print transcript
     # with open('transcript.txt', 'w') as f:
     #     for para in paragraphs:
-    #         print(para['text'] + '\n')
+    #         #print(para['text'] + '\n')
     #         f.write(para['text'] + '\n')
 
     # return

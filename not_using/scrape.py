@@ -19,7 +19,7 @@ def download_podcasts(soup, title):
     name_l = []
     for podcast in soup.find_all('a', {'role':'listitem'}):
         time = podcast.find('div', {'class':'OTz6ee'}).text
-        print(time)
+        #print(time)
         if (time.startswith('Feb') or time.startswith('Jan')) and (time.endswith('2023')):
             i += 1
             time_l.append(time)
@@ -30,7 +30,7 @@ def download_podcasts(soup, title):
             name = podcast.find('div', {'class':'e3ZUqe'}).text
             name_l.append(name)
             
-            print(i, ":", time)
+            #print(i, ":", time)
             filename = wget.download(link, out=title)
             os.rename(filename, title+'/audio'+str(i)+'.mp3') # use if the downloaded name is always the same
             ID_l.append('audio'+str(i))                         #^
@@ -50,7 +50,7 @@ def download_podcasts(soup, title):
     
     df = pd.DataFrame(list(zip([title]*len(ID_l), ID_l, name_l, time_l, description_l, length_l, link_l)), 
                       columns =['Show', 'ID', 'Episode', 'Time', 'Description', 'Length', 'Link'])
-    print(df.to_string())
+    #print(df.to_string())
     ##Save the file as a csv and maybe you can then save the entire transcripts and summaries there as well
     df.to_csv(title+'\\'+ title + '_Details.csv',na_rep='Unkown') # missing value save as Unknown
     return df
@@ -66,7 +66,7 @@ for url in URLs:
     soup = BeautifulSoup(requests.get(url).text, 'lxml')
     title = soup.find('div', {'class':'ZfMIwb'}).text # This is the name of the show
     if os.path.exists(title):
-        print("The Podcast Series: '"+title+ ",' is already downloaded.")
+        #print("The Podcast Series: '"+title+ ",' is already downloaded.")
     else:
         os.mkdir(title) # make a new folder to contain podcasts from the same show
         df = download_podcasts(soup, title) # function details below

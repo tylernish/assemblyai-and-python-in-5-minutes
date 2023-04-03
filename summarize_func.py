@@ -15,7 +15,7 @@ openai.api_key = config.OPENAI_API_KEY #"..."
 #Takes in a text block transcript, and returns a summary
 #Meant for smaller groups of text at a time
 def summarizeText(text):
-  print('\n\n***Piece of text to be summarized:\n'+text)
+  #print('\n\n***Piece of text to be summarized:\n'+text)
   response = openai.Completion.create(
     model="text-davinci-003",
     prompt="Write a summary for this podcast conversation: " + text,  ## +"\n\nTl;dr",
@@ -25,9 +25,9 @@ def summarizeText(text):
     frequency_penalty=0.0,
     presence_penalty=1
   )
-  #print response
+  ##print response
   summary = response.choices[0].text #this should hopefully be text
-  print('\n***A summary of the above piece of text: ' + summary)
+  #print('\n***A summary of the above piece of text: ' + summary)
   return summary
 
 # Input: a compiled text of summaries
@@ -42,9 +42,9 @@ def summarizeSummaries(text):
     frequency_penalty=0.0,
     presence_penalty=1
   )
-  #print response
+  ##print response
   summary = response.choices[0].text #this should hopefully be text
-  print('\n**************King summary: ' + summary)
+  #print('\n**************King summary: ' + summary)
   return summary
 
 
@@ -55,13 +55,13 @@ def summarizeTranscript(transcript):
   fdist = FreqDist(transcript)
   tokenCount = fdist.N()  
   # fdist 
-  ## print the fdist and you will see the occurences of each 
+  ## #print the fdist and you will see the occurences of each 
   ## token type, this could be useful later to perhaps eliminate 
   ## some tokens from the transcripts to shorten them
 
   if(tokenCount>5000):
 
-    print("This transcript has " + str(tokenCount) + " tokens!! This is way too many!\nWe will attempt to split up the transcript into pieces to be summarized, and then summarize the summaries")
+    #print("This transcript has " + str(tokenCount) + " tokens!! This is way too many!\nWe will attempt to split up the transcript into pieces to be summarized, and then summarize the summaries")
     
     ##Split the transcript on 'Speaker' as the delimiter, and add it back later
     d = "Speaker"
@@ -78,7 +78,7 @@ def summarizeTranscript(transcript):
       text = speakerChangeList[i]
       textSize = FreqDist(text).N() # tokens in the one piece of text
       if textSize > 5000:#if text is longer than 5000 don't increment counter, need to redo this same spot but with smaller text broken up
-        print('One speaker speaks for more than 5000 tokens. This is an issue. Try to split this text up')
+        #print('One speaker speaks for more than 5000 tokens. This is an issue. Try to split this text up')
         speakerChangeList = speakerChangeList[0:i+1] + [text[0:int(len(text)/2)]] + [text[int(len(text)/2):-1]] + speakerChangeList[i+1:-1] ##Add in the list the two halves of that one long piece of text
         speakerChangeList.pop(i) #Remove from the list that one big chunk that was just split
         speakerChangeListLength= len(speakerChangeList)
@@ -97,11 +97,11 @@ def summarizeTranscript(transcript):
     summaries = summaries + '\nA summary of the last part of the podcast:' + summarizeText(chunkToSummarize)
 
     #finnally we can summarize the summaries
-    #print('The giant block of summaries: \n' + summaries)
-    print('***********Attempting to summarize the summaries!')
+    ##print('The giant block of summaries: \n' + summaries)
+    #print('***********Attempting to summarize the summaries!')
     kingSummary = summarizeSummaries(summaries)
     return kingSummary
   else:
-    print('This transcript has less than 5000 tokens!')
+    #print('This transcript has less than 5000 tokens!')
     return summarizeText(transcript)
 
