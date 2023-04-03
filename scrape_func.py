@@ -227,7 +227,7 @@ def download_missing_podcast_data_from_episode_URL(url, worksheet):
                 description = 'None'
             description_l.append(description)
             
-            length = (soup.find('span', {'class':'gUJ0Wc'}).text)[7:0]
+            length = (soup.find('span', {'class':'gUJ0Wc'}).text)[7:]
             # length = podcast.find('span', {'class':'gUJ0Wc'}).text
             length_l.append(length)
 

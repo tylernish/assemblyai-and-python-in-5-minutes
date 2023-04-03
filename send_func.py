@@ -9,6 +9,8 @@ from df2gspread import df2gspread as d2g
 import gspread_dataframe as gd
 from gspread_dataframe import set_with_dataframe
 from oauth2client.service_account import ServiceAccountCredentials
+import time
+
 import scrape_func
 import read
 import summarize_func
@@ -213,6 +215,7 @@ def sendMissingDataFromURL(wrks_name, episodeGoogleURLCell, df, row, rowString):
         print(updatedRow)
         sectionToUpdate = 'A'+rowString+':I'+rowString
         updateSection(wrks_name, sectionToUpdate, updatedRow)
+        time.sleep(5) #Trying to wait a bit here because I think that the episode name is being searched for too soon, might need to move up
         episodeNameCell = read.getDfValue(row, 'Episode_Name', df)
         print("Episode name cell content is: "+str(episodeNameCell) +', for row: '+str(row))
         addSummaries(wrks_name, episodeNameCell)
